@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import Burger from '../../Burger/Burger';
 import Button from '../../UI/Button/Button';
@@ -14,12 +15,20 @@ const checkoutSummary = props => {
       }}>
         <Burger ingredients={props.ingredients}/>
       </div>
-      <Button 
-        clicked
-        btnType='Danger'>CANCEL</Button>
-      <Button 
-        clicked
-        btnType='Success'>CONTINUE</Button>
+      <Link to='/'>
+        <Button 
+          clicked
+          btnType='Danger'>
+          CANCEL
+        </Button>
+      </Link>
+      <Link to='/checkout'>
+        <Button 
+          clicked
+          btnType='Success'>
+          CONTINUE
+        </Button>
+      </Link>
       </div>
   );
 }
