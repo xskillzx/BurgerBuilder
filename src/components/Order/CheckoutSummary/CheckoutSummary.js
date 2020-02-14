@@ -17,14 +17,14 @@ const checkoutSummary = props => {
       </div>
       <Link to='/'>
         <Button 
-          clicked
+          clicked={props.checkoutCancelled}
           btnType='Danger'>
           CANCEL
         </Button>
       </Link>
       <Link to='/checkout'>
         <Button 
-          clicked
+          clicked={props.checkoutContinued}
           btnType='Success'>
           CONTINUE
         </Button>
