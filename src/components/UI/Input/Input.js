@@ -20,9 +20,9 @@ const input = props => {
       break;
     default:
       inputElement = <input 
-      className={classes.InputElement} 
-      {...props.elementConfig} 
-      value={props.value}/>
+        className={classes.InputElement} 
+        {...props.elementConfig} 
+        value={props.value}/>
   }
 
   return (
