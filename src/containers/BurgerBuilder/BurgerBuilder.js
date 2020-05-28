@@ -11,9 +11,9 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 import { connect } from 'react-redux';
 import {
-  ADD_INGREDIENT,
-  REMOVE_INGREDIENT,
-  PLACE_ORDER
+  addIngredient,
+  removeIngredient,
+  placeOrder
 } from '../../store/actions/Actions';
 
 const INGREDIENT_PRICES = {
@@ -124,8 +124,8 @@ class BurgerBuilder extends Component {
         <Aux>
           <Burger ingredients={this.state.ingredients} />
           <BuildControls
-          ingredientAdded={this.props.ADD_INGREDIENT}
-          ingredientRemoved={this.props.REMOVE_INGREDIENT}
+          ingredientAdded={this.props.addIngredient}
+          ingredientRemoved={this.props.removeIngredient}
           disabled={disabledInfo}
           purchasable={this.state.purchasable}
           ordered={this.purchaseHandler.bind(this)}
@@ -158,15 +158,17 @@ class BurgerBuilder extends Component {
   };
 }
 
-const mapStatetoProps = {
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice
+const mapStatetoProps = state => {
+  return {
+    ingredients: state.ingredients,
+    totalPrice: state.totalPrice
+  }
 };
 
 const mapDispatchToProps = {
-  ADD_INGREDIENT,
-  REMOVE_INGREDIENT,
-  PLACE_ORDER
+  addIngredient,
+  removeIngredient,
+  placeOrder
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

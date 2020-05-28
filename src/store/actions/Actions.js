@@ -4,17 +4,17 @@ import {
   PLACE_ORDER
 } from './ActionTypes';
 
-export const ADD_INGREDIENT = () => {
+export const addIngredient = () => {
   return {
     type: ADD_INGREDIENT
   }
 };
-export const REMOVE_INGREDIENT = () => {
+export const removeIngredient = () => {
   return {
     type: REMOVE_INGREDIENT
   }
 };
-export const PLACE_ORDER = () => {
+export const placeOrder = () => {
   return {
     type: PLACE_ORDER
   }
