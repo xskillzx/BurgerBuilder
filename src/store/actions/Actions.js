@@ -4,9 +4,12 @@ import {
   PLACE_ORDER
 } from './ActionTypes';
 
-export const addIngredient = () => {
+export const addIngredient = ingredientType => {
   return {
-    type: ADD_INGREDIENT
+    type: ADD_INGREDIENT,
+    payload: {
+      ingredientType
+    }
   }
 };
 export const removeIngredient = () => {

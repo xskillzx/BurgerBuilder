@@ -10,7 +10,7 @@ class OrderSummary extends Component {
     .map(igKey => (
       <li key={igKey}>
         <span style={{ textTransform: 'capitalize' }}>{igKey}</span>
-        : {this.props.ingredients[igKey]}
+        : {this.props.ingredients[igKey].quantity}
       </li>
     ));
 
