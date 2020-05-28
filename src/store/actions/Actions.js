@@ -12,9 +12,12 @@ export const addIngredient = ingredientType => {
     }
   }
 };
-export const removeIngredient = () => {
+export const removeIngredient = ingredientType => {
   return {
-    type: REMOVE_INGREDIENT
+    type: REMOVE_INGREDIENT,
+    payload: {
+      ingredientType
+    }
   }
 };
 export const placeOrder = () => {

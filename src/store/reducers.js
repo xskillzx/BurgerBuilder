@@ -12,22 +12,33 @@ const initialState = {
 }
 
 const burgerBuilder = (state = initialState, action) => {
+  const updatedIngredients = {
+    ...state.ingredients
+  }
   switch (action.type) {
     case ADD_INGREDIENT:
       let ingredientType = action.payload.ingredientType;
-      const updatedIngredients = {
-        ...state.ingredients
-      }
       updatedIngredients[ingredientType].quantity += 1;
-      const newPrice = state.totalPrice + INGREDIENTS[ingredientType].price;
+      const priceIncrease = state.totalPrice + INGREDIENTS[ingredientType].price;
       return {
         ...state,
-        totalPrice: newPrice,
+        totalPrice: priceIncrease,
         ingredients: updatedIngredients
       }
     case REMOVE_INGREDIENT:
+      let ingType = action.payload.ingredientType;
+      const oldCount = state.ingredients[ingType].quantity;
+      if (oldCount <= 0) {
+        return state;
+      }
+      const updatedCount = oldCount - 1;
+      updatedIngredients[ingType].quantity = updatedCount;
+      const priceDeduction = INGREDIENTS[ingType].price;
+      const priceDecrease = state.totalPrice - priceDeduction;
       return {
-        ...state
+        ...state,
+        totalPrice: priceDecrease,
+        ingredients: updatedIngredients
       }
     case PLACE_ORDER:
       return {
