@@ -9,6 +9,13 @@ import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
+import { connect } from 'react-redux';
+import {
+  ADD_INGREDIENT,
+  REMOVE_INGREDIENT,
+  PLACE_ORDER
+} from '../../store/actions/Actions';
+
 const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.4,
@@ -117,8 +124,8 @@ class BurgerBuilder extends Component {
         <Aux>
           <Burger ingredients={this.state.ingredients} />
           <BuildControls
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredientHandler}
+          ingredientAdded={this.props.ADD_INGREDIENT}
+          ingredientRemoved={this.props.REMOVE_INGREDIENT}
           disabled={disabledInfo}
           purchasable={this.state.purchasable}
           ordered={this.purchaseHandler.bind(this)}
@@ -151,4 +158,15 @@ class BurgerBuilder extends Component {
   };
 }
 
-export default withErrorHandler(BurgerBuilder, axios);
+const mapStatetoProps = {
+  ingredients: state.ingredients,
+  totalPrice: state.totalPrice
+};
+
+const mapDispatchToProps = {
+  ADD_INGREDIENT,
+  REMOVE_INGREDIENT,
+  PLACE_ORDER
+};
+
+export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
