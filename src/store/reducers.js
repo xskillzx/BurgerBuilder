@@ -42,7 +42,8 @@ const burgerBuilder = (state = initialState, action) => {
       }
     case PLACE_ORDER:
       return {
-        ...state
+        ...state,
+        ...initialState
       }
     default:
       return state

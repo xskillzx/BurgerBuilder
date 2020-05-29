@@ -117,6 +117,8 @@ class ContactData extends Component {
       purchasing: false
     };
 
+    this.props.placeOrder();
+
     axios.post('orders.json', order)
       .then(response => {
         this.setState(doneLoadingPurchasing);
