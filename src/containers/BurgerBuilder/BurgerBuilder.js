@@ -12,13 +12,11 @@ import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import { connect } from 'react-redux';
 import {
   addIngredient,
-  removeIngredient,
-  placeOrder
-} from '../../store/actions/Actions';
+  removeIngredient
+} from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     purchasing: false,
     loading: false,
     error: false,
@@ -40,17 +38,7 @@ class BurgerBuilder extends Component {
     const sum = Object.keys(this.props.ingredients)
       .map(igKey => this.props.ingredients[igKey].quantity)
       .reduce((sum, el) => sum + el);
-    this.setState({ purchasable: sum > 0 })
-  }
-
-  addIngredientHandler = type => {
-    this.props.addIngredient(type);
-    this.updatePurchaseState();
-  }
-
-  removeIngredientHandler = type => {
-    this.props.removeIngredient(type);
-    this.updatePurchaseState();
+    return sum > 0;
   }
 
   purchaseCancelHandler = () => {
@@ -80,10 +68,10 @@ class BurgerBuilder extends Component {
         <Aux>
           <Burger ingredients={this.props.ingredients} />
           <BuildControls
-          ingredientAdded={this.addIngredientHandler}
-          ingredientRemoved={this.removeIngredientHandler}
+          ingredientAdded={this.props.addIngredient}
+          ingredientRemoved={this.props.removeIngredient}
           disabled={disabledInfo}
-          purchasable={this.state.purchasable}
+          purchasable={this.updatePurchaseState()}
           ordered={this.purchaseHandler.bind(this)}
           price={this.props.totalPrice} />
         </Aux>
@@ -121,8 +109,7 @@ const mapStatetoProps = state => ({
 
 const mapDispatchToProps = {
   addIngredient,
-  removeIngredient,
-  placeOrder
+  removeIngredient
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

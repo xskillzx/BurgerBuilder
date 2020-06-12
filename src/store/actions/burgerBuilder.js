@@ -1,7 +1,6 @@
 import {
   ADD_INGREDIENT,
-  REMOVE_INGREDIENT,
-  PLACE_ORDER
+  REMOVE_INGREDIENT
 } from './actionTypes';
 
 export const addIngredient = ingredientType => {
@@ -18,10 +17,5 @@ export const removeIngredient = ingredientType => {
     payload: {
       ingredientType
     }
-  }
-};
-export const placeOrder = () => {
-  return {
-    type: PLACE_ORDER
   }
 };

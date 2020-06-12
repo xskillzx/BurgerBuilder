@@ -2,9 +2,9 @@ import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
   PLACE_ORDER
-} from './actions/ActionTypes';
+} from '../actions/actionTypes';
 
-import { INGREDIENTS } from '../ingredients/ingredients';
+import { INGREDIENTS } from '../../ingredients/ingredients';
 
 const initialState = {
   ingredients: INGREDIENTS,
