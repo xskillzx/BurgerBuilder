@@ -1,7 +1,7 @@
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  SET_INGREDIENTS,
+  SET_INIT,
   FETCH_INGREDIENTS_FAILED
 } from './actionTypes';
 
@@ -24,10 +24,11 @@ export const removeIngredient = ingredientType => {
   }
 };
 
-const setIngredients = ingredients => {
+const setInit = initData => {
   return {
-    type: SET_INGREDIENTS,
-    ingredients
+    type: SET_INIT,
+    ingredients: initData.ingredients,
+    totalPrice: initData.baseCost
   };
 };
 
@@ -39,8 +40,8 @@ const fetchIngredientsFailed = () => {
 
 export const initIngredients = () => {
   return dispatch => {
-    axios.get('https://react-my-burger-cfa65.firebaseio.com/ingredients.json')
-      .then(res => dispatch(setIngredients(res.data)))
-      .catch(error => dispatch(fetchIngredientsFailed()));
+    axios.get('https://react-my-burger-cfa65.firebaseio.com/init.json')
+      .then(res => dispatch(setInit(res.data)))
+      .catch(error => dispatch(fetchIngredientsFailed(error)));
   }
 };

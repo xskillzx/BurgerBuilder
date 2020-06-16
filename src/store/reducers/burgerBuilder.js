@@ -1,13 +1,13 @@
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  SET_INGREDIENTS,
+  SET_INIT,
   FETCH_INGREDIENTS_FAILED
 } from '../actions/actionTypes';
 
 const initialState = {
   ingredients: null,
-  totalPrice: 4,
+  totalPrice: 0,
   error: false
 }
 
@@ -40,10 +40,11 @@ const burgerBuilder = (state = initialState, action) => {
         totalPrice: priceDecrease,
         ingredients: updatedIngredients
       }
-    case SET_INGREDIENTS:
+    case SET_INIT:
       return {
         ...state,
         ingredients: action.ingredients,
+        totalPrice: action.totalPrice,
         error: false
       }
     case FETCH_INGREDIENTS_FAILED:

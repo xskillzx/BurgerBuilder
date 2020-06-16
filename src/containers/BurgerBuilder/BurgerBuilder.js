@@ -13,7 +13,8 @@ import { connect } from 'react-redux';
 import {
   addIngredient,
   removeIngredient,
-  initIngredients
+  initIngredients,
+  purchaseInit
 } from '../../store/actions';
 
 class BurgerBuilder extends Component {
@@ -41,6 +42,7 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
+    this.props.purchaseInit();
     this.props.history.push({
       pathname: '/checkout'
     });
@@ -101,7 +103,8 @@ const mapStatetoProps = state => ({
 const mapDispatchToProps = {
   addIngredient,
   removeIngredient,
-  initIngredients
+  initIngredients,
+  purchaseInit
 };
 
 export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));

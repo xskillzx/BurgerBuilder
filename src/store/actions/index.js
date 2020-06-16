@@ -5,5 +5,6 @@ export {
 } from './burgerBuilder';
 
 export {
-  placeOrder
+  placeOrder,
+  purchaseInit
 } from './order';
