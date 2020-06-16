@@ -1,6 +1,7 @@
 import {
-  ORDER_SUCCESS,
-  ORDER_FAILED
+  BURGER_ORDER_SUCCESS,
+  BURGER_ORDER_FAILED,
+  PURCHASE_BURGER_START
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -10,7 +11,12 @@ const initialState = {
 
 const order = (state = initialState, action) => {
   switch (action.type) {
-    case ORDER_SUCCESS:
+    case PURCHASE_BURGER_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case BURGER_ORDER_SUCCESS:
       const newOrder = {
         ...action.orderData,
         id: action.orderId
@@ -20,7 +26,7 @@ const order = (state = initialState, action) => {
         loading: false,
         orders: state.orders.concat(newOrder)
       }
-    case ORDER_FAILED:
+    case BURGER_ORDER_FAILED:
       return {
         ...state,
         loading: true
