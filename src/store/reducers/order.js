@@ -2,7 +2,10 @@ import {
   BURGER_ORDER_SUCCESS,
   BURGER_ORDER_FAILED,
   PURCHASE_BURGER_START,
-  PURCHASE_INIT
+  PURCHASE_INIT,
+  FETCH_ORDERS_START,
+  FETCH_ORDERS_SUCCESS,
+  FETCH_ORDERS_FAIL
 } from '../actions/actionTypes';
 
 const initialState = {
@@ -38,6 +41,22 @@ const order = (state = initialState, action) => {
       return {
         ...state,
         loading: true
+      }
+    case FETCH_ORDERS_START:
+      return {
+        ...state,
+        loading: true
+      }
+    case FETCH_ORDERS_SUCCESS:
+      return {
+        ...state,
+        orders: action.orders,
+        loading: false
+      }
+    case FETCH_ORDERS_FAIL:
+      return {
+        ...state,
+        loading: false
       }
     default:
       return state
