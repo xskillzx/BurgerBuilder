@@ -1,7 +1,6 @@
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  PLACE_ORDER,
   SET_INGREDIENTS,
   FETCH_INGREDIENTS_FAILED
 } from '../actions/actionTypes';
@@ -9,6 +8,7 @@ import {
 const initialState = {
   ingredients: null,
   totalPrice: 4,
+  error: false
 }
 
 const burgerBuilder = (state = initialState, action) => {
@@ -39,11 +39,6 @@ const burgerBuilder = (state = initialState, action) => {
         ...state,
         totalPrice: priceDecrease,
         ingredients: updatedIngredients
-      }
-    case PLACE_ORDER:
-      return {
-        ...state,
-        ...initialState
       }
     case SET_INGREDIENTS:
       return {

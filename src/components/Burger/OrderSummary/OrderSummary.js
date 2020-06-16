@@ -7,6 +7,9 @@ class OrderSummary extends Component {
   // this could be a functional component, doesn't have to be a class
   render () {
     const ingredientSummary = Object.keys(this.props.ingredients)
+    .sort((a, b) => {
+      return this.props.ingredients[a].priority - this.props.ingredients[b].priority;
+    })
     .map(igKey => (
       <li key={igKey}>
         <span style={{ textTransform: 'capitalize' }}>{igKey}</span>

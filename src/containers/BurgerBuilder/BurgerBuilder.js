@@ -6,7 +6,8 @@ import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 import Spinner from '../../components/UI/Spinner/Spinner';
-// import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+import axios from '../../axios-orders';
+import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 import { connect } from 'react-redux';
 import {
@@ -92,9 +93,9 @@ class BurgerBuilder extends Component {
 }
 
 const mapStatetoProps = state => ({
-  ingredients: state.ingredients,
-  totalPrice: state.totalPrice,
-  error: state.error
+  ingredients: state.burgerBuilder.ingredients,
+  totalPrice: state.burgerBuilder.totalPrice,
+  error: state.burgerBuilder.error
 });
 
 const mapDispatchToProps = {
@@ -103,5 +104,4 @@ const mapDispatchToProps = {
   initIngredients
 };
 
-// export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder));
-export default connect(mapStatetoProps, mapDispatchToProps)(BurgerBuilder);
+export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
