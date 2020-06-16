@@ -5,29 +5,23 @@ import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal';
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
-import axios from '../../axios-orders';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
+// import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 
 import { connect } from 'react-redux';
 import {
   addIngredient,
-  removeIngredient
-} from '../../store/actions/index';
+  removeIngredient,
+  initIngredients
+} from '../../store/actions';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasing: false,
-    loading: false,
-    error: false,
+    purchasing: false
   }
 
-  componentDidMount () {
-    // axios.get('https://react-my-burger-cfa65.firebaseio.com/ingredients.json')
-    //   .then(res => {
-    //     this.setState({ ingredients: res.data });
-    //   })
-    //   .catch(error => this.setState({ error: true }));
+  componentDidMount() {
+    this.props.initIngredients();
   }
 
   purchaseHandler () {
@@ -37,7 +31,7 @@ class BurgerBuilder extends Component {
   updatePurchaseState () {
     const sum = Object.keys(this.props.ingredients)
       .map(igKey => this.props.ingredients[igKey].quantity)
-      .reduce((sum, el) => sum + el);
+      .reduce((sum, el) => sum + el, 0);
     return sum > 0;
   }
 
@@ -60,8 +54,7 @@ class BurgerBuilder extends Component {
     }
 
     let orderSummary = null;
-
-    let burger = this.state.error ? <p>Ingredients can't be loaded</p> : <Spinner />
+    let burger = this.props.error ? <p>Ingredients can't be loaded</p> : <Spinner />
 
     if (this.props.ingredients) {
       burger = (
@@ -85,10 +78,6 @@ class BurgerBuilder extends Component {
       )
     }
 
-    if (this.state.loading) {
-      orderSummary = <Spinner />
-    }
-
     return (
       <Aux>
         <Modal
@@ -104,12 +93,15 @@ class BurgerBuilder extends Component {
 
 const mapStatetoProps = state => ({
   ingredients: state.ingredients,
-  totalPrice: state.totalPrice
+  totalPrice: state.totalPrice,
+  error: state.error
 });
 
 const mapDispatchToProps = {
   addIngredient,
-  removeIngredient
+  removeIngredient,
+  initIngredients
 };
 
-export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder, axios));
+// export default connect(mapStatetoProps, mapDispatchToProps)(withErrorHandler(BurgerBuilder));
+export default connect(mapStatetoProps, mapDispatchToProps)(BurgerBuilder);

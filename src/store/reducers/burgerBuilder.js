@@ -1,13 +1,13 @@
 import {
   ADD_INGREDIENT,
   REMOVE_INGREDIENT,
-  PLACE_ORDER
+  PLACE_ORDER,
+  SET_INGREDIENTS,
+  FETCH_INGREDIENTS_FAILED
 } from '../actions/actionTypes';
 
-import { INGREDIENTS } from '../../ingredients/ingredients';
-
 const initialState = {
-  ingredients: INGREDIENTS,
+  ingredients: null,
   totalPrice: 4,
 }
 
@@ -19,7 +19,7 @@ const burgerBuilder = (state = initialState, action) => {
     case ADD_INGREDIENT:
       let ingredientType = action.payload.ingredientType;
       updatedIngredients[ingredientType].quantity += 1;
-      const priceIncrease = state.totalPrice + INGREDIENTS[ingredientType].price;
+      const priceIncrease = state.totalPrice + state.ingredients[ingredientType].price;
       return {
         ...state,
         totalPrice: priceIncrease,
@@ -33,7 +33,7 @@ const burgerBuilder = (state = initialState, action) => {
       }
       const updatedCount = oldCount - 1;
       updatedIngredients[ingType].quantity = updatedCount;
-      const priceDeduction = INGREDIENTS[ingType].price;
+      const priceDeduction = state.ingredients[ingType].price;
       const priceDecrease = state.totalPrice - priceDeduction;
       return {
         ...state,
@@ -44,6 +44,17 @@ const burgerBuilder = (state = initialState, action) => {
       return {
         ...state,
         ...initialState
+      }
+    case SET_INGREDIENTS:
+      return {
+        ...state,
+        ingredients: action.ingredients,
+        error: false
+      }
+    case FETCH_INGREDIENTS_FAILED:
+      return {
+        ...state,
+        error: true
       }
     default:
       return state
